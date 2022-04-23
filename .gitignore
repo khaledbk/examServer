@@ -1,0 +1,12 @@
+#dist directory
+/dist
+
+#Node modules
+/node_modules
+
+#env
+.env
+
+#lock
+yarn.lock
+package-lock.json
