@@ -3,11 +3,8 @@
  * Employee Module
  *
  */
-import { EmployeeDao } from "@/api/employee/dao";
-import {
-  EmployeeService,
-  EmployeeServiceInterface,
-} from "@/api/employee/services";
+import { EmployeeDao } from "./dao";
+import { EmployeeService, EmployeeServiceInterface } from "./services";
 
 //Module Interface
 export interface EmployeeModuleInterface {

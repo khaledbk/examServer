@@ -6,12 +6,11 @@
 
 import { Router } from "express";
 import { EmployeeServiceInterface } from "./services";
-//import { EmployeeDaoInterface } from "./dao";
 import { Employee } from "./employee";
 
 export const employeeRouter = (
   service: EmployeeServiceInterface //queries
-) => {
+): Router => {
   //create the router instance
   const router = Router();
 

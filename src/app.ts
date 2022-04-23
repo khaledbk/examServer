@@ -1,7 +1,7 @@
 import express from "express";
-import { employeeRouter } from "@/api/employee/routers";
-import { EmployeeModule, EmployeeModuleInterface } from "@/api/employee";
-import { connect } from "@/db";
+import { employeeRouter } from "./api/employee/routers";
+import { EmployeeModule, EmployeeModuleInterface } from "./api/employee";
+import { connect } from "./db";
 
 export const myExamServer = (employeeModule: EmployeeModuleInterface) => {
   const app = express();
@@ -18,5 +18,6 @@ const port = 3000; //should comes from the .env file
 const app = myExamServer(EmployeeModule);
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   return console.log(`Express is listening at http://localhost:${port}`);
 });

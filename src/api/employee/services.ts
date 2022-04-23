@@ -17,8 +17,8 @@
  *
  *
  */
-import { EmployeeInterface } from "@/api/employee/employee";
-import { EmployeeDaoInterface } from "@/api/employee/dao";
+import { EmployeeInterface } from "./employee";
+import { EmployeeDaoInterface } from "./dao";
 
 export interface EmployeeServiceInterface {
   getEmployees(): Promise<EmployeeInterface[]>;

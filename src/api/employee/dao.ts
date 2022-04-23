@@ -16,8 +16,8 @@
  * @method getEmployee:
  *
  */
-import { db } from "@/db";
-import { EmployeeInterface } from "@/api/employee/employee";
+import { db } from "../../db";
+import { EmployeeInterface } from "./employee";
 
 export interface EmployeeDaoInterface {
   insertEmployee(employee: EmployeeInterface): Promise<void>;
@@ -33,7 +33,9 @@ export class EmployeeDao implements EmployeeDaoInterface {
     return;
   }
 
-  async updateEmployee(employee: EmployeeInterface): Promise<void> {}
+  async updateEmployee(employee: EmployeeInterface): Promise<void> {
+    return;
+  }
 
   async deleteEmployee(userId: string): Promise<boolean> {
     return true;

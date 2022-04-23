@@ -10,7 +10,8 @@ export const connect = async (dbName: string) => {
   try {
     const conn = await client.connect();
     db = conn.db(dbName);
-    console.log("connected to db");
+    // eslint-disable-next-line no-console
+    console.log("connected to db ! ..");
     return client;
   } catch (e) {
     throw new Error(`[Error]: ${e.message}`);
