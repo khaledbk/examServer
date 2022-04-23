@@ -1,4 +1,4 @@
-export interface UserInterface {
+export interface EmployeeInterface {
   _id: string;
   name: string;
   surname: string;
@@ -7,7 +7,7 @@ export interface UserInterface {
   title: string;
 }
 
-export const User = (
+export const Employee = (
   name: string,
   surname: string,
   phoneNumber: string,

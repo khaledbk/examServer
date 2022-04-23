@@ -2,10 +2,16 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
+    "allowJs": true,
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "paths": {
+      "@/db": ["./db"],
+      "@/api/*": ["./api/*"]
+    }
   },
-  "lib": ["es2015"]
+  "lib": ["es2017"]
 }

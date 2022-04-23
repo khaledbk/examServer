@@ -1,7 +1,7 @@
-#Server :
+# Exam Server [BackEnd]
 
-## This is a node app to serve both backend and front end app
+#### This is a node app to serve frontend app to manage employees
 
 ### Exposed Services :
 
-#### Users
+#### Employee :

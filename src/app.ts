@@ -1,9 +1,9 @@
 import express from "express";
-import { userRouter } from "./api/users/routers";
-import { UserModule, UserModuleInterface } from "./api/users";
-import { connect } from "./db";
+import { userRouter } from "@/api/employee/routers";
+import { EmployeeModule, EmployeeModuleInterface } from "@/api/employee";
+import { connect } from "@/db";
 
-export const myExamServer = (userModule: UserModuleInterface) => {
+export const myExamServer = (userModule: EmployeeModuleInterface) => {
   const app = express();
   app.use(express.json());
   //Routes
@@ -15,7 +15,7 @@ export const myExamServer = (userModule: UserModuleInterface) => {
 
 connect("exam");
 const port = 3000; //should comes from the .env file
-const app = myExamServer(UserModule);
+const app = myExamServer(EmployeeModule);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
