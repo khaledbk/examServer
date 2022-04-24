@@ -7,15 +7,16 @@
 import { Router } from "express";
 import { EmployeeServiceInterface } from "./services";
 import { Employee } from "./employee";
+import { ObjectId } from "mongodb";
 
-export const employeeRouter = (
+export const employeesRouter = (
   service: EmployeeServiceInterface //queries
 ): Router => {
   //create the router instance
   const router = Router();
 
   //get
-  router.get("/employees", async (req, res) => {
+  router.get("/api/employees", async (req, res) => {
     try {
       //request
       const employees = await service.getEmployees();
@@ -25,11 +26,11 @@ export const employeeRouter = (
     }
   });
 
-  router.get("/employee:employeeId", async (req, res) => {
+  router.get("/api/employee:employeeId", async (req, res) => {
     //get one employee with employeeId as params
     try {
       //request
-      const employeeId = ""; // to get employeeId from request
+      const employeeId = new ObjectId(); // to get employeeId from request
       const employee = await service.getEmployee(employeeId);
       res.json(employee);
     } catch (e) {
@@ -37,19 +38,47 @@ export const employeeRouter = (
     }
   });
 
-  router.post("/updateEmployee", async (req, res) => {
+  router.post("/api/updateEmployee", async (req, res) => {
     //update a employee into db
+    try {
+      const employee = {
+        _id: new ObjectId(),
+        username: "",
+        email: "",
+        name: "",
+        surname: "",
+        address: "",
+        title: "",
+        phoneNumber: "",
+      }; // comes from the req
+
+      await service.updateEmployee(employee);
+      res.json(employee);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
   });
 
-  router.post("/deleteEmployee:employeeId", async (req, res) => {
+  router.post("/api/deleteEmployee:employeeId", async (req, res) => {
     //delete a employee into db
+    try {
+      const employeeId = new ObjectId(); // comes from the req
+
+      const result = await service.deleteEmployee(employeeId);
+      res.json(result);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
   });
 
   //post
-  router.post("/insertEmployee", async (req, res) => {
+  router.post("/api/insertEmployee", async (req, res) => {
     try {
       //request
+      //this data should come from the request body
       const insertedEmployee = Employee(
+        "username",
+        "email",
         "khaled",
         "benkhaled",
         "819-328-2743",
@@ -60,6 +89,7 @@ export const employeeRouter = (
       await service.insertEmployee(insertedEmployee);
 
       const employee = await service.getEmployee(insertedEmployee._id);
+      //to return the inserted Employee object
       res.json(employee);
     } catch (e) {
       res.status(500).json({ error: e.message });

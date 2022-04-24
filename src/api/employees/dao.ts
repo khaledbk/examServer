@@ -16,15 +16,34 @@
  * @method getEmployee:
  *
  */
+import { ObjectId } from "mongodb";
 import { db } from "../../db";
 import { EmployeeInterface } from "./employee";
+
+export enum Provider {
+  PASSWORD = "password",
+  GOOGLE = "google",
+  TOKEN = "token",
+}
+export interface LoginProviderInterface {
+  provider: Provider;
+  data: string;
+}
+export interface LoginInterface {
+  username: string;
+  provider: LoginProviderInterface;
+}
 
 export interface EmployeeDaoInterface {
   insertEmployee(employee: EmployeeInterface): Promise<void>;
   updateEmployee(employee: EmployeeInterface): Promise<void>;
-  deleteEmployee(userId: string): Promise<boolean>;
+  deleteEmployee(userId: ObjectId): Promise<boolean>;
   getEmployees(): Promise<EmployeeInterface[]>;
-  getEmployee(userId: string): Promise<EmployeeInterface>;
+  getEmployee(userId: ObjectId): Promise<EmployeeInterface>;
+  // loginWithPassword(auth: LoginInterface):Promise <>;// action to log in
+  // loginWithToken();
+  // loginWithGoole();
+  // me(); //get the current user data
 }
 
 export class EmployeeDao implements EmployeeDaoInterface {
@@ -37,7 +56,7 @@ export class EmployeeDao implements EmployeeDaoInterface {
     return;
   }
 
-  async deleteEmployee(userId: string): Promise<boolean> {
+  async deleteEmployee(userId: ObjectId): Promise<boolean> {
     return true;
   }
 
@@ -49,10 +68,10 @@ export class EmployeeDao implements EmployeeDaoInterface {
       .then((res: EmployeeInterface[]) => res);
   }
 
-  async getEmployee(userId: string): Promise<EmployeeInterface> {
+  async getEmployee(userId: ObjectId): Promise<EmployeeInterface> {
     return await db
       .collection<EmployeeInterface>("users")
-      .findOne({ _id: "new object id mongo of userId" })
+      .findOne({ _id: new ObjectId() })
       .then((res: EmployeeInterface) => res);
   }
 }

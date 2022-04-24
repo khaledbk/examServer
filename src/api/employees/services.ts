@@ -19,13 +19,14 @@
  */
 import { EmployeeInterface } from "./employee";
 import { EmployeeDaoInterface } from "./dao";
+import { ObjectId } from "mongodb";
 
 export interface EmployeeServiceInterface {
   getEmployees(): Promise<EmployeeInterface[]>;
-  getEmployee(userId: string): Promise<EmployeeInterface>;
+  getEmployee(userId: ObjectId): Promise<EmployeeInterface>;
   insertEmployee(employee: EmployeeInterface): Promise<void>;
   updateEmployee(employee: EmployeeInterface): Promise<void>;
-  deleteEmployee(userId: string): Promise<boolean>;
+  deleteEmployee(userId: ObjectId): Promise<boolean>;
 }
 
 export class EmployeeService implements EmployeeServiceInterface {
@@ -38,7 +39,7 @@ export class EmployeeService implements EmployeeServiceInterface {
     return this.dao.getEmployees();
   }
 
-  async getEmployee(userId: string) {
+  async getEmployee(userId: ObjectId) {
     return this.dao.getEmployee(userId);
   }
 
@@ -52,7 +53,7 @@ export class EmployeeService implements EmployeeServiceInterface {
     return;
   }
 
-  async deleteEmployee(userId: string) {
+  async deleteEmployee(userId: ObjectId) {
     return await this.dao.deleteEmployee(userId);
   }
 }

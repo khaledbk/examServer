@@ -1,5 +1,9 @@
+import { ObjectId } from "mongodb";
+
 export interface EmployeeInterface {
-  _id: string;
+  _id: ObjectId;
+  username: string;
+  email: string;
   name: string;
   surname: string;
   phoneNumber: string;
@@ -8,6 +12,8 @@ export interface EmployeeInterface {
 }
 
 export const Employee = (
+  username: string,
+  email: string,
   name: string,
   surname: string,
   phoneNumber: string,
@@ -15,7 +21,9 @@ export const Employee = (
   title: string
 ) => {
   return {
-    _id: "", // mongo objectId
+    _id: new ObjectId(), // mongo objectId
+    username,
+    email,
     name,
     surname,
     phoneNumber,
