@@ -24,7 +24,7 @@ import { ObjectId } from "mongodb";
 export interface UserServiceInterface {
   loginWithPassword(auth: LoginInterface): Promise<UserInterface>; // action to log in
   loginWithToken(auth: LoginInterface): Promise<UserInterface>;
-  loginWithGoole(auth: LoginInterface): Promise<UserInterface>;
+  loginWithGoogle(auth: LoginInterface): Promise<UserInterface>;
   me(auth: LoginInterface): Promise<UserInterface>; //get the current user data
 }
 
@@ -41,8 +41,8 @@ export class UserService implements UserServiceInterface {
     return this.dao.loginWithToken(auth);
   }
 
-  async loginWithGoole(auth: LoginInterface) {
-    return await this.dao.loginWithGoole(auth);
+  async loginWithGoogle(auth: LoginInterface) {
+    return await this.dao.loginWithGoogle(auth);
   }
 
   async me(auth: LoginInterface) {

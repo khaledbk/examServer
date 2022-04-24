@@ -16,7 +16,7 @@ import assign from "lodash/assign";
 export interface UserDaoInterface {
   loginWithPassword(auth: LoginInterface): Promise<UserInterface>; // action to log in
   loginWithToken(auth: LoginInterface): Promise<UserInterface>; // for refresh purposes
-  loginWithGoole(auth: LoginInterface): Promise<UserInterface>; // to log in using google provider
+  loginWithGoogle(auth: LoginInterface): Promise<UserInterface>; // to log in using google provider
   me(auth: LoginInterface): Promise<UserInterface>; //get the current user data
 }
 
@@ -69,7 +69,7 @@ export class UserDao implements UserDaoInterface {
     return;
   }
 
-  async loginWithGoole(auth: LoginInterface): Promise<UserInterface> {
+  async loginWithGoogle(auth: LoginInterface): Promise<UserInterface> {
     // validate the token from google oauth2 service
     //then look for the user and return user data result
     return;

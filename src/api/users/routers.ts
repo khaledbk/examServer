@@ -36,7 +36,7 @@ export const usersRouter = (
           res.json(userToken);
           return;
         case Provider.GOOGLE:
-          let userGoogle = await service.loginWithGoole(credentials);
+          let userGoogle = await service.loginWithGoogle(credentials);
           res.json(userGoogle);
           return;
         default:
