@@ -3,9 +3,7 @@
  * User Routers
  *
  */
-
 import { Router } from "express";
-import { ObjectId } from "mongodb";
 import { UserServiceInterface } from "./services";
 import { Provider, User } from "./user";
 import get from "lodash/get";

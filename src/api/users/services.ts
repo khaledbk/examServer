@@ -1,25 +1,15 @@
 /**
  * User Provided Services
- *
  * Those services helps to isolate the db calls
- *
  * @class UserService
- *
- * @method getUsers :
- *
- * @method getUser :
- *
- * @method insertUser :
- *
- * @method updateUser :
- *
- * @method deleteUser :
- *
+ * @method loginWithPassword :
+ * @method loginWithToken :
+ * @method loginWithGoogle :
+ * @method me :
  *
  */
 import { UserInterface, LoginInterface } from "./user";
 import { UserDaoInterface } from "./dao";
-import { ObjectId } from "mongodb";
 
 export interface UserServiceInterface {
   loginWithPassword(auth: LoginInterface): Promise<UserInterface>; // action to log in
