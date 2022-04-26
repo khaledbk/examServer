@@ -63,7 +63,9 @@ export class EmployeeDao implements EmployeeDaoInterface {
   async getEmployees(): Promise<EmployeeInterface[]> {
     return await db
       .collection<EmployeeInterface>("users")
-      .find({})
+      .find({
+        "credentials.isAdmin": false,
+      })
       .toArray()
       .then((res: EmployeeInterface[]) => res);
   }
