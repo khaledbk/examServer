@@ -73,7 +73,7 @@ export class EmployeeDao implements EmployeeDaoInterface {
   async getEmployee(userId: ObjectId): Promise<EmployeeInterface> {
     return await db
       .collection<EmployeeInterface>("users")
-      .findOne({ _id: new ObjectId() })
+      .findOne({ _id: userId })
       .then((res: EmployeeInterface) => res);
   }
 }

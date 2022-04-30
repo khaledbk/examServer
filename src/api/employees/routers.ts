@@ -26,11 +26,11 @@ export const employeesRouter = (
     }
   });
 
-  router.get("/api/employee:employeeId", async (req, res) => {
+  router.get("/api/employee/:id", async (req, res) => {
     //get one employee with employeeId as params
     try {
       //request
-      const employeeId = new ObjectId(); // to get employeeId from request
+      const employeeId = new ObjectId(req.params.id); // to get employeeId from request
       const employee = await service.getEmployee(employeeId);
       res.json(employee);
     } catch (e) {
