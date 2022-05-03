@@ -35,7 +35,7 @@ export interface LoginInterface {
 }
 
 export interface EmployeeDaoInterface {
-  insertEmployee(employee: EmployeeInterface): Promise<void>;
+  insertEmployee(): Promise<ObjectId>;
   updateEmployee(employee: EmployeeInterface): Promise<void>;
   deleteEmployee(userId: ObjectId): Promise<boolean>;
   getEmployees(): Promise<EmployeeInterface[]>;
@@ -47,16 +47,55 @@ export interface EmployeeDaoInterface {
 }
 
 export class EmployeeDao implements EmployeeDaoInterface {
-  async insertEmployee(employee: EmployeeInterface): Promise<void> {
-    await db.collection<EmployeeInterface>("users").insertOne(employee);
-    return;
+  async insertEmployee(): Promise<ObjectId> {
+    return db
+      .collection("users")
+      .insertOne({
+        name: "",
+        surname: "",
+        title: "",
+        phoneNumber: "",
+        address: "",
+        email: "",
+        username: "",
+        credentials: {
+          hash: "",
+          isAdmin: false,
+          loginToken: "",
+          googleToken: "",
+          createdAt: new Date(),
+        },
+      })
+      .then(({ insertedId }) => {
+        return insertedId;
+      });
   }
 
   async updateEmployee(employee: EmployeeInterface): Promise<void> {
+    await db.collection<EmployeeInterface>("users").updateOne(
+      {
+        _id: new ObjectId(employee?._id),
+      },
+      {
+        $set: employee,
+      }
+    );
     return;
   }
 
   async deleteEmployee(userId: ObjectId): Promise<boolean> {
+    return db
+      .collection<EmployeeDaoInterface>("users")
+      .deleteMany({
+        _id: {
+          $in: [],
+        },
+      })
+      .then((res) => true)
+      .catch((e) => {
+        console.log("[ERROR - DELETION USER(S)]", e);
+        throw new Error("Cannot delete user(s)");
+      });
     return true;
   }
 

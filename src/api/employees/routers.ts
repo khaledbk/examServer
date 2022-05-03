@@ -71,26 +71,18 @@ export const employeesRouter = (
     }
   });
 
-  //post
-  router.post("/api/insertEmployee", async (req, res) => {
+  //get
+  router.get("/api/insertEmployee", async (req, res) => {
     try {
       //request
       //this data should come from the request body
-      const insertedEmployee = Employee(
-        "username",
-        "email",
-        "khaled",
-        "benkhaled",
-        "819-328-2743",
-        "46 Rue Bedard",
-        "F S W D"
-      );
-      //await dao.insertEmployee(insertedEmployee);
-      await service.insertEmployee(insertedEmployee);
 
-      const employee = await service.getEmployee(insertedEmployee._id);
+      //await dao.insertEmployee(insertedEmployee);
+      const employeeId = await service.insertEmployee();
+
+      //const employee = await service.getEmployee(employeeId);
       //to return the inserted Employee object
-      res.json(employee);
+      res.json(employeeId);
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
