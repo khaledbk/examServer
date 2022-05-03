@@ -48,7 +48,7 @@ export class EmployeeService implements EmployeeServiceInterface {
     return insertedId;
   }
 
-  async updateEmployee(employee: any) {
+  async updateEmployee(employee: EmployeeInterface) {
     await this.dao.updateEmployee(employee);
     return;
   }

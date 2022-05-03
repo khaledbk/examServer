@@ -6,7 +6,7 @@
 
 import { Router } from "express";
 import { EmployeeServiceInterface } from "./services";
-import { Employee } from "./employee";
+import { Employee, EmployeeInterface } from "./employee";
 import { ObjectId } from "mongodb";
 
 export const employeesRouter = (
@@ -41,16 +41,7 @@ export const employeesRouter = (
   router.post("/api/updateEmployee", async (req, res) => {
     //update a employee into db
     try {
-      const employee = {
-        _id: new ObjectId(),
-        username: "",
-        email: "",
-        name: "",
-        surname: "",
-        address: "",
-        title: "",
-        phoneNumber: "",
-      }; // comes from the req
+      const employee: EmployeeInterface = req.body; // comes from the req
 
       await service.updateEmployee(employee);
       res.json(employee);

@@ -16,7 +16,7 @@
  * @method getEmployee:
  *
  */
-import { ObjectId } from "mongodb";
+import { ObjectId, UpdateResult } from "mongodb";
 import { db } from "../../db";
 import { EmployeeInterface } from "./employee";
 
@@ -40,10 +40,6 @@ export interface EmployeeDaoInterface {
   deleteEmployee(userId: ObjectId): Promise<boolean>;
   getEmployees(): Promise<EmployeeInterface[]>;
   getEmployee(userId: ObjectId): Promise<EmployeeInterface>;
-  // loginWithPassword(auth: LoginInterface):Promise <>;// action to log in
-  // loginWithToken();
-  // loginWithGoole();
-  // me(); //get the current user data
 }
 
 export class EmployeeDao implements EmployeeDaoInterface {
@@ -72,14 +68,27 @@ export class EmployeeDao implements EmployeeDaoInterface {
   }
 
   async updateEmployee(employee: EmployeeInterface): Promise<void> {
-    await db.collection<EmployeeInterface>("users").updateOne(
-      {
-        _id: new ObjectId(employee?._id),
-      },
-      {
-        $set: employee,
-      }
-    );
+    db.collection<EmployeeInterface>("users")
+      .updateOne(
+        {
+          _id: new ObjectId(employee?._id),
+        },
+        {
+          $set: {
+            name: employee?.name,
+            surname: employee?.surname,
+            address: employee?.address,
+            phoneNumber: employee?.phoneNumber,
+            title: employee?.title,
+            email: employee?.email,
+            username: employee?.username,
+          },
+        }
+      )
+      .then((res: UpdateResult) => {})
+      .catch((e: any) => {
+        throw new Error("[ERROR]: Cannot update employee");
+      });
     return;
   }
 
@@ -96,7 +105,6 @@ export class EmployeeDao implements EmployeeDaoInterface {
         console.log("[ERROR - DELETION USER(S)]", e);
         throw new Error("Cannot delete user(s)");
       });
-    return true;
   }
 
   async getEmployees(): Promise<EmployeeInterface[]> {
