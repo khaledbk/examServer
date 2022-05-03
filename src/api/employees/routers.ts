@@ -6,8 +6,9 @@
 
 import { Router } from "express";
 import { EmployeeServiceInterface } from "./services";
-import { Employee, EmployeeInterface } from "./employee";
+import { EmployeeInterface } from "./employee";
 import { ObjectId } from "mongodb";
+import get from "lodash/get";
 
 export const employeesRouter = (
   service: EmployeeServiceInterface //queries
@@ -50,12 +51,11 @@ export const employeesRouter = (
     }
   });
 
-  router.post("/api/deleteEmployee:employeeId", async (req, res) => {
+  router.post("/api/deleteEmployee", async (req, res) => {
     //delete a employee into db
     try {
-      const employeeId = new ObjectId(); // comes from the req
-
-      const result = await service.deleteEmployee(employeeId);
+      const employeeId = get(req.body, "employeeId", ""); // comes from the req
+      const result = await service.deleteEmployee(new ObjectId(employeeId));
       res.json(result);
     } catch (e) {
       res.status(500).json({ error: e.message });

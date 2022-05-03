@@ -97,7 +97,7 @@ export class EmployeeDao implements EmployeeDaoInterface {
       .collection<EmployeeDaoInterface>("users")
       .deleteMany({
         _id: {
-          $in: [],
+          $eq: userId,
         },
       })
       .then((res) => true)
