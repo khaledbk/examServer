@@ -19,7 +19,7 @@ export const decode = (token: string) => {
 
     return decoded;
   } catch (error) {
-    console.error(`error`, error);
+    console.error(`[error]`, error);
     return null;
   }
 };

@@ -17,10 +17,11 @@ export const employeesRouter = (
   const router = Router();
 
   //get
-  router.get("/api/employees", async (req, res) => {
+  router.post("/api/employees", async (req, res) => {
     try {
       //request
-      const employees = await service.getEmployees();
+      const filter = req.body?.filter;
+      const employees = await service.getEmployees(filter);
       res.json(employees);
     } catch (e) {
       res.status(500).json({ error: e.message });

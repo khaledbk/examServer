@@ -17,6 +17,7 @@
  *
  */
 import { ObjectId, UpdateResult } from "mongodb";
+import { createFilter } from "../../utils/createFilter";
 import { db } from "../../db";
 import { EmployeeInterface } from "./employee";
 
@@ -38,7 +39,7 @@ export interface EmployeeDaoInterface {
   insertEmployee(): Promise<ObjectId>;
   updateEmployee(employee: EmployeeInterface): Promise<void>;
   deleteEmployee(userId: ObjectId): Promise<boolean>;
-  getEmployees(): Promise<EmployeeInterface[]>;
+  getEmployees(filter: any): Promise<EmployeeInterface[]>;
   getEmployee(userId: ObjectId): Promise<EmployeeInterface>;
 }
 
@@ -107,12 +108,11 @@ export class EmployeeDao implements EmployeeDaoInterface {
       });
   }
 
-  async getEmployees(): Promise<EmployeeInterface[]> {
+  async getEmployees({ query }: any): Promise<EmployeeInterface[]> {
+    const filter = createFilter(query);
     return await db
       .collection<EmployeeInterface>("users")
-      .find({
-        "credentials.isAdmin": false,
-      })
+      .aggregate([{ $match: filter }])
       .toArray()
       .then((res: EmployeeInterface[]) => res);
   }

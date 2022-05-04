@@ -22,7 +22,7 @@ import { EmployeeDaoInterface } from "./dao";
 import { ObjectId } from "mongodb";
 
 export interface EmployeeServiceInterface {
-  getEmployees(): Promise<EmployeeInterface[]>;
+  getEmployees(filter: any): Promise<EmployeeInterface[]>;
   getEmployee(userId: ObjectId): Promise<EmployeeInterface>;
   insertEmployee(): Promise<ObjectId>;
   updateEmployee(employee: EmployeeInterface): Promise<void>;
@@ -35,8 +35,8 @@ export class EmployeeService implements EmployeeServiceInterface {
     this.dao = dao;
   }
 
-  async getEmployees() {
-    return this.dao.getEmployees();
+  async getEmployees(filter: any) {
+    return this.dao.getEmployees(filter);
   }
 
   async getEmployee(userId: ObjectId) {
