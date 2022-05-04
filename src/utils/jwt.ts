@@ -15,7 +15,7 @@ export const signJwt = ({ _id, email }: JWTPayload) => {
 export const decode = (token: string) => {
   if (!token) return null;
   try {
-    const decoded = jwt.verify(token);
+    const decoded = jwt.verify(token, SECRET);
 
     return decoded;
   } catch (error) {

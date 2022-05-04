@@ -11,7 +11,7 @@ import { ObjectId } from "mongodb";
 import { db } from "../../db";
 import { LoginInterface, UserInterface } from "./user";
 import { hashedPassword } from "../../utils/validatePassword";
-import { signJwt } from "../../utils/jwt";
+import { signJwt, decode } from "../../utils/jwt";
 import assign from "lodash/assign";
 export interface UserDaoInterface {
   loginWithPassword(auth: LoginInterface): Promise<UserInterface>; // action to log in
@@ -66,6 +66,14 @@ export class UserDao implements UserDaoInterface {
 
   async loginWithToken(auth: LoginInterface): Promise<UserInterface> {
     // get the user then validate token then return data user
+    const decodedToken = decode(auth?.provider?.data);
+    if (decodedToken) {
+      const user = await db
+        .collection<UserInterface>("users")
+        .findOne({ email: decodedToken?.email });
+      return user;
+    }
+
     return;
   }
 
