@@ -90,7 +90,6 @@ export const createFilter = (filter: object, mapFields = {}) => {
   }
 
   const { OR = [], AND = [], NOT, negate = false, ...rest }: any = filter;
-
   let builtFilter: any = {};
 
   forOwn(rest, (obj, key) => {

@@ -8,7 +8,7 @@ type JWTPayload = {
 
 export const signJwt = ({ _id, email }: JWTPayload) => {
   return jwt.sign({ _id, email }, SECRET, {
-    expiresIn: 60 * 48, // test 86400 // expires in 24 hours
+    expiresIn: 60 * 60 * 24, // test 86400 // expires in 24 hours
   });
 };
 

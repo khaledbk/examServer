@@ -14,6 +14,12 @@ export const myExamServer = () => {
     })
   );
   app.use(function (req, res, next) {
+    const bearerHeader = req.headers["authorization"];
+    console.log(bearerHeader);
+    //without this header this app should'nt work
+    if (bearerHeader === undefined) {
+      res.sendStatus(403);
+    }
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header(
       "Access-Control-Allow-Headers",
