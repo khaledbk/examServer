@@ -15,7 +15,7 @@ export const myExamServer = () => {
   );
   app.use(function (req, res, next) {
     const bearerHeader = req.headers["authorization"];
-    console.log(bearerHeader);
+    //console.log(bearerHeader);
     //without this header this app should'nt work
     if (bearerHeader === undefined) {
       res.sendStatus(403);

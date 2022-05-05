@@ -12,7 +12,7 @@ import { db } from "../../db";
 import { LoginInterface, UserInterface } from "./user";
 import { hashedPassword } from "../../utils/validatePassword";
 import { signJwt, decode } from "../../utils/jwt";
-import assign from "lodash/assign";
+
 export interface UserDaoInterface {
   loginWithPassword(auth: LoginInterface): Promise<UserInterface>; // action to log in
   loginWithToken(auth: LoginInterface): Promise<UserInterface>; // for refresh purposes

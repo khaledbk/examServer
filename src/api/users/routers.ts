@@ -5,7 +5,7 @@
  */
 import { Router } from "express";
 import { UserServiceInterface } from "./services";
-import { Provider, User } from "./user";
+import { Provider } from "./user";
 import get from "lodash/get";
 export const usersRouter = (
   service: UserServiceInterface //queries
@@ -28,19 +28,24 @@ export const usersRouter = (
         case Provider.PASSWORD:
           let userPassword = await service.loginWithPassword(credentials);
           res.json(userPassword);
+          res.status(200);
           return;
         case Provider.TOKEN:
           let userToken = await service.loginWithToken(credentials);
           res.json(userToken);
+          res.status(200);
           return;
         case Provider.GOOGLE:
           let userGoogle = await service.loginWithGoogle(credentials);
           res.json(userGoogle);
+          res.status(200);
           return;
         default:
           console.log("[ERROR]: No Provider to login");
+          res.status(404);
           return;
       }
+
       //const users = await service.loginWithPassword();
     } catch (e) {
       res.status(500).json({ error: e.message });
