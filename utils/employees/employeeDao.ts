@@ -1,8 +1,8 @@
+/* istanbul ignore file */
 import { EmployeeDaoInterface } from "../../src/api/employees/dao";
 import { EmployeeDao } from "../../src/api/employees/dao";
-import { connect } from "../../src/db";
 import { Employee } from "../../src/api/employees/employee";
-import { MongoClient, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 
 let insertedId: ObjectId;
 let employeeDao: EmployeeDaoInterface = new EmployeeDao();
@@ -15,20 +15,21 @@ export const createEmployee = () => {
 };
 
 export const updateEmployee = () => {
-  it(`should update the employee with this id ${insertedId}`, async () => {
-    const myEmployee = Employee(
-      "simon",
-      "simon@gmail.com",
-      "Simon",
-      "Henry",
-      "+123456789",
-      "67 Blvd Liberty",
-      "CTO"
-    );
+  it(`should update the employee `, async () => {
+    //creating new employee to be passed to the dao
 
-    await employeeDao.updateEmployee(myEmployee);
+    await employeeDao.updateEmployee({
+      _id: insertedId,
+      username: "simon",
+      email: "simon@gmail.com",
+      name: "Simon",
+      surname: "Henry",
+      phoneNumber: "+123456789",
+      address: "67 Blvd Liberty",
+      title: "CTO",
+    });
     const updatedUser = await employeeDao.getEmployee(insertedId);
-    //expect(updatedUser._id).toStrictEqual(insertedId);
+    expect(updatedUser._id).toStrictEqual(insertedId);
     expect(updatedUser.email).toBe("simon@gmail.com");
   });
 };

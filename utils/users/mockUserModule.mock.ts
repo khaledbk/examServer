@@ -20,10 +20,10 @@ export const mockUserModule: UserModuleInterface = {
   userService: mockUserService,
 };
 
-describe("Mocking user interfaces", () => {
+export const userModules = () => {
   it("should mock the user services and data access objects", () => {
     expect(mockUserService).toBeDefined;
     expect(mockDao).toBeDefined;
     expect(mockUserModule).toBeDefined;
   });
-});
+};

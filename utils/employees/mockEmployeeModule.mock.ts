@@ -22,10 +22,10 @@ export const mockEmployeeModule: EmployeeModuleInterface = {
   employeeService: mockEmployeeService,
 };
 
-describe("Mocking employee interfaces", () => {
+export const employeeModule = () => {
   it("should mock the employee services and data access objects", () => {
     expect(mockEmployeeService).toBeDefined;
     expect(mockDao).toBeDefined;
     expect(mockEmployeeModule).toBeDefined;
   });
-});
+};
